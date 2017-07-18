@@ -1,0 +1,152 @@
+<div class="page-title">
+  <div class="title_left">
+    <h3>Danh sách slider</h3>
+  </div>
+  <div class="title_right">
+    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+      <div class="input-group">
+        <input type="text" class="form-control" name="filter" (keyup.enter)="loadData()" [(ngModel)]="filter" placeholder="Gõ thông tin tim kiếm...">
+        <span class="input-group-btn">
+                     <button class="btn btn-default" (click)="loadData()" type="button">Tìm!</button>
+                </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <ul class="nav navbar-right panel_toolbox">
+          <li>
+            <button *ngIf="_authenService.hasPermission('SLIDER','create')" class="btn btn-success" (click)="showAdd()">Thêm mới</button>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>URL</th>
+              <th>Status</th>
+              <th>Imange</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let it of sliders">
+              <td>{{it.Name}}</td>
+              <td>{{it.Description}}</td>
+              <td>{{it.Status}}</td>
+              <td>{{it.Url}}</td>
+              <td><img [src]="baseFolder + it.Image" class="img-responsive" width="128" /></td>
+              <td>
+                <button class="btn btn-primary" *ngIf="_authenService.hasPermission('SLIDER','update')" (click)="showEdit(it.Id)"><i class="fa fa-pencil-square-o"></i></button>
+                <button class="btn btn-danger" *ngIf="_authenService.hasPermission('SLIDER','delete')" (click)="showEdit(it.Id)"><i class="fa fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="sliders && sliders.length == 0" class="col-md-12">
+          <div class="alert alert-info">
+            <strong>Thông báo!</strong> Hiện tại chưa có bài viết nào trong hệ thống
+          </div>
+
+        </div>
+        <div *ngIf="sliders && sliders.length > 0" class="col-md-12">
+          <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow"
+            [(ngModel)]="pageIndex" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal add and edit-->
+<div bsModal #modalAddEdit="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Thêm/Sửa page</h4>
+        <button type="button" class="close pull-right" (click)="modalAddEdit.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal form-label-left" novalidate #addEditForm="ngForm" (ngSubmit)="saveChange(addEditForm)" *ngIf="entity">
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input type="hidden" [(ngModel)]="entity.Id" name="id" />
+              <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3" name="name" class="form-control">
+              <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)" class="text-danger">
+                                Bạn phải nhập tên ít nhất 3 ký tự
+                            </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input type="hidden" [(ngModel)]="entity.Id" name="id" />
+              <input type="text" #name="ngModel" [(ngModel)]="entity.Description"   name="description" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Nội dung</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <app-simple-tiny [elementId]="'page-editor-id'" [content]="entity.Content" (onEditorKeyup)="keyupHandlerContentFunction($event)">
+              </app-simple-tiny>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Hình ảnh</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="file" #image name="image" class="form-control">
+              <p class="help-block label label-danger"> chỉ hỗ trợ định dạng *.png, *.jpg, *.jpeg </p>
+              <input type="hidden" [(ngModel)]="entity.Image" name="imageUrl" />
+            </div>
+
+            <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="entity.Image">
+              <img [src]="baseFolder+entity.Image" width="128" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Thứ tự</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input type="number" #displayOrder="ngModel" [(ngModel)]="entity.DisplayOrder" required name="displayOrder" class="form-control"
+              />
+            </div>
+          </div>
+           <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Url</label>
+            <div class="col-md-9 col-sm-9 col-xs-12"> 
+              <input type="text" #name="ngModel" [(ngModel)]="entity.Url"  name="Url" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Trạng thái</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <div class="checkbox">
+                <label>
+                 <input type="checkbox" [(ngModel)]="entity.Status" name="status" #status="ngModel"> Kích hoạt
+                 </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+              <button type="button" (click)="modalAddEdit.hide()" class="btn btn-primary">Hủy bỏ</button>
+              <button type="submit" class="btn btn-success" [disabled]="!addEditForm.form.valid">Cập nhật</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

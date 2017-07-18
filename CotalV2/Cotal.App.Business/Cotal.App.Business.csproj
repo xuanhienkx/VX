@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="2.0.1" />
+    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cotal.App.Data\Cotal.App.Data.csproj" />
+    <ProjectReference Include="..\Cotal.App.Model\Cotal.App.Model.csproj" />
+    <ProjectReference Include="..\Cotal.Core.Identity\Cotal.Core.Identity.csproj" />
+    <ProjectReference Include="..\Cotal.Core.InfacBase\Cotal.Core.InfacBase.csproj" />
+  </ItemGroup>
+</Project>

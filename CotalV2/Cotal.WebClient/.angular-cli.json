@@ -1,0 +1,84 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "cotal.web-client"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css", 
+        "./assets/css/skin-bootstrap.css",
+        "../node_modules/font-awesome/css/font-awesome.min.css", 
+        "./assets/css/responsive.css",
+        "../node_modules/animate.css/animate.min.css", 
+        "../node_modules/owl.carousel/dist/assets/owl.carousel.min.css", 
+        "../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css", 
+        "./assets/css/color.css",
+        "styles.css"
+      ],
+      "scripts": [ 
+        "../node_modules/jquery/dist/jquery.min.js",
+        "./assets/js/jquery-ui.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "./assets/js/modernizr.custom.js", 
+        "./assets/rendro-easy-pie-chart/dist/jquery.easypiechart.min.js",
+        "../node_modules/jquery-waypoints/waypoints.min.js",
+        "./assets/js/jquery.easypiechart.min.js", 
+         
+
+        "../node_modules/owl.carousel/dist/owl.carousel.min.js", 
+
+        "./assets/isotope/jquery.isotope.min.js",
+
+        "./assets/js/jquery.smooth-scroll.js",
+        "./assets/js/wow.min.js",
+        "../node_modules/jquery-placeholder/jquery.placeholder.js",
+        "./assets/js/smoothscroll.min.js",
+        "./assets/js/theme.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json"
+    },
+    {
+      "project": "src/tsconfig.spec.json"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {}
+  }
+}
