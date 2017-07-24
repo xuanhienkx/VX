@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Cotal.App.Business.Services;
 using Cotal.App.Business.ViewModels.Common;
 using Cotal.App.Model.Models;
@@ -22,8 +23,7 @@ namespace Cotal.WebAPI.Controllers
             _sliderService = sliderService;
         }
         // GET: api/values
-        [HttpGet("GetAll")] 
-        [AllowAnonymous]
+        [HttpGet("GetAll")]
         public IActionResult GetAll(int? page, int pageSize = 20, string keyword = "")
         {
             page = page ?? 1;
@@ -32,7 +32,15 @@ namespace Cotal.WebAPI.Controllers
                     x => (string.IsNullOrEmpty(keyword) || x.Name.Contains(keyword) || x.Content.Contains(keyword))));
             return Ok(result);
         }
-        [HttpGet("Detail/{id}")] 
+        [HttpGet("GetAllActive/{type}")]
+        [AllowAnonymous]
+        public IActionResult GetAllActive(SlideType type)
+        {
+
+            var result = _sliderService.GetAllByStatus(x => x.Status && x.SlideType.Equals(type)).ToList();
+            return Ok(result);
+        }
+        [HttpGet("Detail/{id}")]
         public IActionResult Get(int id)
         {
             var data = _sliderService.Get(id);
@@ -63,7 +71,7 @@ namespace Cotal.WebAPI.Controllers
             }
             catch (Exception e)
             {
-              return  Error(e);
+                return Error(e);
             }
         }
         [HttpDelete("Delete/{id}")]

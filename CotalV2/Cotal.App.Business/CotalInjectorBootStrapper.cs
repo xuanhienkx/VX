@@ -50,6 +50,7 @@ namespace Cotal.App.Business
             services.AddTransient<IFeedbackService, FeedbackService>();
             services.AddTransient<ICommonService, CommonService>();
             services.AddTransient<IContactDetailService, ContactDetailService>();
+            services.AddTransient<IProviderServices, ProviderServices>();
         }
     }
 }

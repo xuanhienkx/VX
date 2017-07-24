@@ -1,14 +1,12 @@
 ﻿using System;
 using Cotal.App.Business.Services;
 using Cotal.App.Business.ViewModels.Post;
-using Cotal.App.Model.Models;
-using Cotal.Core.Domain;
+using Cotal.App.Model.Models; 
 using Cotal.Core.InfacBase.Paging;
 using Cotal.Core.InfacBase.Query;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Logging; 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

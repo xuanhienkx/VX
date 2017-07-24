@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Cotal.App.Business.Services;
 using Cotal.App.Business.ViewModels.System;
+using Cotal.App.Model.Models;
+using Cotal.Core.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -27,8 +29,8 @@ namespace Cotal.WebAPI.Controllers
         {
             IEnumerable<FunctionViewModel> model;
             model = CurrentRoleNames.Contains("Administrator")
-              ? _functionService.GetAll(string.Empty)
-              : _functionService.GetAllWithPermission(CurrentRoleIds);
+              ? _functionService.GetAll(string.Empty, FunctionType.Admin)
+              : _functionService.GetAllWithPermission(CurrentRoleIds, FunctionType.Admin);
 
             var parents = model.Where(x => x.Parent == null).ToList();
             foreach (var parent in parents)

@@ -25,6 +25,7 @@ export class SliderComponent implements OnInit {
   public entity: any;
   public filter: string = '';
   public baseFolder: string = SystemConstants.BASE_API;
+  public slideTypes: any[]
   constructor(private _dataService: DataService,
     private _notificationService: NotificationService,
     private _utilityService: UtilityService, public _authenService: AuthenService,
@@ -39,7 +40,7 @@ export class SliderComponent implements OnInit {
 
     this._dataService.get('/api/Slider/GetAll?page=' + this.pageIndex + '&pageSize=' + this.pageSize + '&keyword=' + this.filter)
       .subscribe((response: any) => {
-        this.sliders = response.Data;
+        this.sliders = response.Data; 
         this.pageIndex = response.PageNumber;
         this.totalRow = response.TotalEntityCount;
       }, error => this._dataService.handleError(error));
@@ -56,13 +57,21 @@ export class SliderComponent implements OnInit {
     this.pageIndex = event.page;
     this.loadData();
   }
+  loadSlideType() {
+    this._dataService.getEnumAsList("SlideType").subscribe((response: any[]) => {
+      this.slideTypes = response; 
+    }, error => this._dataService.handleError(error));
+  }
   //Show add form
   public showAdd() {
     this.entity = { Content: '' };
+    this. loadSlideType();
     this.modalAddEdit.show();
   }
   //Show edit form
   public showEdit(id: string) {
+    this. loadSlideType();
+    this.entity = { Content: '' };
     this._dataService.get('/api/Slider/Detail/' + id).subscribe((response: any) => {
       this.entity = response;
       this.modalAddEdit.show();

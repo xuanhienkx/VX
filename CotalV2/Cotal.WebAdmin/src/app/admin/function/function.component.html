@@ -42,17 +42,19 @@
 </div>
 
 <!--Modal add and edit-->
-<div bsModal #addEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div bsModal #addEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title pull-left">Thêm mới / Chỉnh sửa</h4>
                 <button type="button" class="close pull-right" (click)="addEditModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+                 <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal form-label-left input_mask" novalidate #addEditForm="ngForm" (ngSubmit)="saveChanges(addEditForm.valid)" *ngIf="entity">
+                <form class="form-horizontal form-label-left input_mask" novalidate #addEditForm="ngForm" (ngSubmit)="saveChanges(addEditForm.valid)"
+                    *ngIf="entity">
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Mã chức năng</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -84,7 +86,8 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Thứ tự</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="number" #displayOrder="ngModel" [(ngModel)]="entity.DisplayOrder" required name="displayOrder" class="form-control" />
+                            <input type="number" #displayOrder="ngModel" [(ngModel)]="entity.DisplayOrder" required name="displayOrder" class="form-control"
+                            />
                             <small [hidden]="displayOrder.valid || (displayOrder.pristine && !addEditForm.submitted)" class="text-danger">
                 Bạn phải nhập thứ tự
               </small>
@@ -94,9 +97,9 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Chức năng cha</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <select class="form-control" name="parentId" [(ngModel)]="entity.ParentId">
-                 <option value="">--Chọn chức năng cha--</option>
-                  <option *ngFor="let x of _functions" [value]="x.Id">{{x.Name}}</option>
-                </select>
+                            <option value="">--Chọn chức năng cha--</option>
+                            <option *ngFor="let x of _functions" [value]="x.Id">{{x.Name}}</option>
+                            </select>
                             <input type="hidden" [(ngModel)]="entity.ParentId" name="parentId" class="form-control" />
                         </div>
                     </div>
@@ -105,6 +108,16 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Icon CSS</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input type="text" #iconCss="ngModel" [(ngModel)]="entity.IconCss" name="iconCss" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Chức năng cho page</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" name="functionType" [(ngModel)]="entity.FunctionType">
+                            <option value="">--Chọn chức cho page--</option>
+                            <option *ngFor="let x of _funstiontypes" [value]="x.Key">{{x.Value}}</option>
+                            </select>
+                            <input type="hidden" [(ngModel)]="entity.FunctionType" name="functionType" class="form-control" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -133,7 +146,8 @@
 
 <!--Permission popup-->
 
-<div bsModal #permissionModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div bsModal #permissionModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

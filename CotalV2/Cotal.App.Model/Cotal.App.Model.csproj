@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp1.0</TargetFramework>
   </PropertyGroup>  
   <ItemGroup>
+    <ProjectReference Include="..\Cotal.Core.Common\Cotal.Core.Common.csproj" />
     <ProjectReference Include="..\Cotal.Core.InfacBase\Cotal.Core.InfacBase.csproj" />
   </ItemGroup>
 

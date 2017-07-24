@@ -31,8 +31,9 @@
             <tr>
               <th>Name</th>
               <th>Description</th>
-              <th>URL</th>
-              <th>Status</th>
+               <th>Status</th>
+              <th>URL</th> 
+              <th>Place</th>
               <th>Imange</th>
               <th></th>
             </tr>
@@ -43,6 +44,7 @@
               <td>{{it.Description}}</td>
               <td>{{it.Status}}</td>
               <td>{{it.Url}}</td>
+              <td>{{it.TypeName}}</td>
               <td><img [src]="baseFolder + it.Image" class="img-responsive" width="128" /></td>
               <td>
                 <button class="btn btn-primary" *ngIf="_authenService.hasPermission('SLIDER','update')" (click)="showEdit(it.Id)"><i class="fa fa-pencil-square-o"></i></button>
@@ -93,7 +95,7 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
               <input type="hidden" [(ngModel)]="entity.Id" name="id" />
-              <input type="text" #name="ngModel" [(ngModel)]="entity.Description"   name="description" class="form-control">
+              <input type="text" #name="ngModel" [(ngModel)]="entity.Description" name="description" class="form-control">
             </div>
           </div>
 
@@ -123,10 +125,20 @@
               />
             </div>
           </div>
-           <div class="form-group">
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Chức năng cho vị trí</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <select class="form-control" name="SlideType" [(ngModel)]="entity.SlideType">
+                            <option value="">--Chọn chức cho vị trí--</option>
+                            <option *ngFor="let x of slideTypes" [value]="x.Key">{{x.Value}}</option>
+                            </select>
+              <input type="hidden" [(ngModel)]="entity.SlideType" name="SlideType" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Url</label>
-            <div class="col-md-9 col-sm-9 col-xs-12"> 
-              <input type="text" #name="ngModel" [(ngModel)]="entity.Url"  name="Url" class="form-control">
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input type="text" #name="ngModel" [(ngModel)]="entity.Url" name="Url" class="form-control">
             </div>
           </div>
           <div class="form-group">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
@@ -7,12 +8,13 @@ using Cotal.App.Business.ViewModels.Common;
 using Cotal.App.Model.Models;
 using Cotal.Core.Domain.Interfaces;
 using Cotal.Core.InfacBase.Uow;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cotal.App.Business.Services
 {
     public interface ISliderService
     {
-
+        IEnumerable<SlideViewModel> GetAllByStatus(Expression<Func<Slide, bool>> fiter);
         SlideViewModel Get(int id);
         SlideViewModel Get(Expression<Func<Slide, bool>> fiter);
         SlideViewModel Add(SlideViewModel model);
@@ -45,8 +47,14 @@ namespace Cotal.App.Business.Services
 
         public SlideViewModel Get(int id)
         {
-            var data = Repository.Get(id);
-            return _mapper.Map<Slide, SlideViewModel>(data);
+            var data = Repository.Get(id); 
+            return _mapper.Map<Slide, SlideViewModel>(data); 
+        }
+
+        public IEnumerable<SlideViewModel> GetAllByStatus(Expression<Func<Slide, bool>> fiter)
+        {
+            var result = Repository.Query(fiter);
+            return _mapper.Map<IEnumerable<Slide>, IEnumerable<SlideViewModel>>(result);
         }
 
         public SlideViewModel Get(Expression<Func<Slide, bool>> fiter)

@@ -8,6 +8,7 @@ namespace Cotal.App.Business.Services
 {
     public interface IServiceBase<T, TKey>
     {
+
     }
 
     public abstract class ServiceBace<T, TKey> : IServiceBase<T, TKey> where TKey : IEquatable<TKey>

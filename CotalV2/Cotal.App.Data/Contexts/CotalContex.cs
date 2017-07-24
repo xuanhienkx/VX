@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Cotal.App.Model.Models;
+using Cotal.Core.Common.Enums;
 using Cotal.Core.InfacBase.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +17,7 @@ namespace Cotal.App.Data.Contexts
     {
     }
 
+    public DbSet<OutService> OutServices { set; get; } 
     public DbSet<Footer> Footers { set; get; } 
     public DbSet<Page> Pages { set; get; } 
     public DbSet<Post> Posts { set; get; }

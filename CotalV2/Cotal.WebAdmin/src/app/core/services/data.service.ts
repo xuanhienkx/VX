@@ -22,14 +22,16 @@ export class DataService {
     if (currentUser && currentUser.access_token) {
       let headersA = new Headers({ 'Authorization': 'Bearer ' + currentUser.access_token });
       headersA.append('content-Type', 'application/json; charset=utf-8');
-      headersA.append('Accept', 'application/json');
-
-      headersA.append('Access-Control-Allow-Origin', 'http://localhost:4200');
-      headersA.append('Access-Control-Allow-Credentials', 'true'); 
+       headersA.append('Accept', 'application/json');  
+       headersA.append('Access-Control-Allow-Credentials', 'true'); 
      // headersA.append('GET', 'POST', 'OPTIONS');
 
       return new RequestOptions({ headers: headersA });
     }
+  }
+  getEnumAsList(enumName:string){
+    let uri ='/api/Static/GetEnumAsList?name=' + enumName
+    return this._http.get(SystemConstants.BASE_API + uri, this.jwt()).map(this.extractData);
   }
   get(uri: string) {
 

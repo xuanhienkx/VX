@@ -1,43 +1,35 @@
-import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SystemConstants } from "../../core/common/system.constants";
+import { DataService } from "../../core/services/data.service";
 
 @Component({
   selector: 'app-home-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.css']
 })
-export class SliderComponent implements OnInit, AfterContentChecked {
+export class SliderComponent implements OnInit {
 
-  constructor() { }
+  public sliders: any[];
+  public baseFolder: string = SystemConstants.BASE_API;
 
+  constructor(private _dataService: DataService) { }
   ngOnInit() {
-    var owl = $('#owl-main-slider');
-    owl.owlCarousel({
-      items: 1,
-      loop: true,
-      margin: 10,
-      autoplay: true,
-      autoplayTimeout: 3000,
-      autoplayHoverPause: true, 
-    });
-    $(function () {
-      owl.trigger('play.owl.autoplay', [1000])
-    })
-    // $(document).ready(function () {
-    //   //owl.trigger('play.owl.autoplay', [50])
-    //   $('#owl-main-slider').owlCarousel({
-    //     items: 1,
-    //     loop: true,
-    //     margin: 10,
-    //     autoplay: true,
-    //     autoplayTimeout: 100,
-    //     autoplayHoverPause: true ,   
-    //     autoHeight: false,
-    //   });
-    // });
-
+    this.loadData();
   }
-  ngAfterContentChecked() {
-
+  loadData() {
+    //GetAllActive
+    this._dataService.get('/api/Slider/GetAllActive/Main')
+      .subscribe((response: any) => {
+        this.sliders = response;
+      }, error => this._dataService.handleError(error));
+  }
+  prev() {
+    let owl = $('#owl-main-slider');
+    owl.trigger('prev.owl.carousel');
+  }
+  next() {
+    let owl = $('#owl-main-slider');
+    owl.trigger('next.owl.carousel');
   }
 
 }

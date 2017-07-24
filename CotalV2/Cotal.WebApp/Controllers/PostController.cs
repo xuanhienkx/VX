@@ -38,6 +38,7 @@ namespace Cotal.WebAPI.Controllers
             return Ok(result);
 
         }
+        [HttpGet("GetTop")]
         [AllowAnonymous]
         public IActionResult GetTop(int top = 10)
         {

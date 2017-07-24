@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TreeComponent } from 'angular-tree-component';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { DataService } from "app/core/services/data.service";
-import { NotificationService } from "app/core/services/notification.service";
-import { UtilityService } from "app/core/services/utility.service";
-import { MessageContstants } from "app/core/common/message.constants";
+import { DataService } from "../../core/services/data.service";
+import { NotificationService } from "../../core/services/notification.service";
+import { UtilityService } from "../../core/services/utility.service";
+import { MessageContstants } from "../../core/common/message.constants";
 @Component({
   selector: 'app-function',
   templateUrl: './function.component.html',
@@ -21,8 +21,9 @@ export class FunctionComponent implements OnInit {
   public entity: any;
   public editFlag: boolean;
   public filter: string = '';
-  public functionId : string;
+  public functionId: string;
   public _permission: any[];
+  public _funstiontypes: any[];
 
   constructor(private _dataService: DataService,
     private notificationService: NotificationService,
@@ -31,7 +32,12 @@ export class FunctionComponent implements OnInit {
   ngOnInit() {
     this.search();
   }
-public showPermission(id: any) {
+  loadFuntionType() {
+    this._dataService.getEnumAsList("FunctionType").subscribe((response: any[]) => {
+      this._funstiontypes = response; 
+    }, error => this._dataService.handleError(error));
+  }
+  public showPermission(id: any) {
     this._dataService.get('/api/Role/GetAllPermission?functionId=' + id).subscribe((response: any[]) => {
       this.functionId = id;
       this._permission = response;
@@ -55,6 +61,7 @@ public showPermission(id: any) {
   //Show add form
   public showAddModal() {
     this.entity = {};
+    this.loadFuntionType();
     this.addEditModal.show();
     this.editFlag = false;
   }
@@ -89,7 +96,8 @@ public showPermission(id: any) {
 
   }
   //Show edit form
-  public showEdit(id: string) {
+  public showEdit(id: string) { 
+    this.loadFuntionType();
     this._dataService.get('/api/Function/Detail/' + id).subscribe((response: any) => {
       this.entity = response;
       this.editFlag = true;

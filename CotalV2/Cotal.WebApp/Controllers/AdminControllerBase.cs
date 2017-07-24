@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace Cotal.WebAPI.Controllers
 {
-    [EnableCors("AllowCors")]
+    [EnableCors("AllowCors")] 
     public abstract class ControllerBase<T> : Controller //where T : Controller
     {
         protected readonly ILogger Logger;  

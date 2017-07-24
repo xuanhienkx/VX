@@ -4,6 +4,7 @@ using Cotal.App.Business.ViewModels.Common;
 using Cotal.App.Business.ViewModels.Post;
 using Cotal.App.Business.ViewModels.System;
 using Cotal.App.Model.Models;
+using Cotal.Core.Common.Enums;
 using Cotal.Core.Identity.Models;
 
 namespace Cotal.App.Business.Infrastructure.Extensions
@@ -39,7 +40,8 @@ namespace Cotal.App.Business.Infrastructure.Extensions
             slide.Content = model.Content;
             slide.Status = model.Status;
             slide.Url = model.Url;
-            slide.DisplayOrder = model.DisplayOrder; 
+            slide.DisplayOrder = model.DisplayOrder;
+            slide.SlideType = model.SlideType;
         }
         public static void UpdatePost(this Post post, PostViewModel postVm)
         {
@@ -61,6 +63,28 @@ namespace Cotal.App.Business.Infrastructure.Extensions
             post.MetaDescription = postVm.MetaDescription;
             post.Status = postVm.Status;
         }
+        public static void UpdateOutService(this OutService service, OutServiceModel serviceModel)
+        {
+            service.Id = serviceModel.Id;
+            service.Name = serviceModel.Name;
+            service.Description = serviceModel.Description;
+            service.Alias = serviceModel.Alias; 
+            service.Content = serviceModel.Content;
+            service.Image = serviceModel.Image;
+            service.HomeFlag = serviceModel.HomeFlag; 
+            service.Status = serviceModel.Status;
+            service.IconCss = serviceModel.IconCss;
+            service.HotFlag = serviceModel.HotFlag;
+
+            service.CreatedDate = serviceModel.CreatedDate;
+            service.CreatedBy = serviceModel.CreatedBy;
+            service.UpdatedDate = serviceModel.UpdatedDate;
+            service.UpdatedBy = serviceModel.UpdatedBy;
+            service.MetaKeyword = serviceModel.MetaKeyword;
+            service.MetaDescription = serviceModel.MetaDescription;
+        }
+
+
         public static void UpdatePage(this Page page, PageViewModel pageView)
         {
             page.Id = pageView.Id;
@@ -169,6 +193,7 @@ public static void UpdateProductImage(this ProductImage image, ProductImageViewM
             function.Status = functionVm.Status;
             function.URL = functionVm.URL;
             function.Id = functionVm.Id;
+            function.FunctionType = functionVm.FunctionType;
         }
 
         public static void UpdatePermission(this Permission permission, PermissionViewModel permissionVm)

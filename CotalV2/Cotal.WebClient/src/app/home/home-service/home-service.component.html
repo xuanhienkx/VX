@@ -1,50 +1,36 @@
 <div class="container-fluid block-content">
-    <div class="text-center hgroup wow zoomInUp" data-wow-delay="0.3s">
-        <h1>OUR SERVICES</h1>
-        <h2>We have wide network of offices in all major locations to help you with <br> the services we offer</h2>
+    <div class="text-center hgroup wow zoomInUp">
+        <h1>DỊCH VỤ</h1>
+        <!-- <h2>We have wide network of offices in all major locations to help you with <br> the services we offer</h2> -->
     </div>
     <div class="row our-services">
-        <div class="col-sm-6 col-md-4 col-lg-4 wow zoomInLeft" data-wow-delay="0.3s">
-            <a href="11_blog-details.html">
-                <span><i class="glyph-icon flaticon-boats4"></i></span>
-                <h4>SEA FREIGHT</h4>
-                <p>Integer congue elit non semper laore lectus orci posuer nisl tempor lacus mauris led ipsum.</p>
+
+        <div *ngFor="let it of services; let i = index;" class="col-sm-6 col-md-4 col-lg-4 wow {{i%3===0 ? 'zoomInRight' : i%3===0 ?'zoomInUp':'zoomInLeft'}}">
+            <a (click)="showModal(it.Id)">
+                <span><i class="glyph-icon {{it.IconCss}}"></i></span>
+                <h4>{{it.Name}}</h4>
+                <p>{{it.Description}}</p>
             </a>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 wow zoomInUp" data-wow-delay="0.3s">
-            <a href="11_blog-details.html">
-                <span><i class="glyph-icon flaticon-flying"></i></span>
-                <h4>SEA FREIGHT</h4>
-                <p>Integer congue elit non semper laore lectus orci posuer nisl tempor lacus mauris led ipsum.</p>
-            </a>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 wow zoomInRight" data-wow-delay="0.3s">
-            <a href="11_blog-details.html">
-                <span><i class="glyph-icon flaticon-garage1"></i></span>
-                <h4>SEA FREIGHT</h4>
-                <p>Integer congue elit non semper laore lectus orci posuer nisl tempor lacus mauris led ipsum.</p>
-            </a>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 wow zoomInLeft" data-wow-delay="0.3s">
-            <a href="11_blog-details.html">
-                <span><i class="glyph-icon flaticon-package7"></i></span>
-                <h4>SEA FREIGHT</h4>
-                <p>Integer congue elit non semper laore lectus orci posuer nisl tempor lacus mauris led ipsum.</p>
-            </a>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 wow zoomInUp" data-wow-delay="0.3s">
-            <a href="11_blog-details.html">
-                <span><i class="glyph-icon flaticon-railway1"></i></span>
-                <h4>SEA FREIGHT</h4>
-                <p>Integer congue elit non semper laore lectus orci posuer nisl tempor lacus mauris led ipsum.</p>
-            </a>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 wow zoomInRight" data-wow-delay="0.3s">
-            <a href="11_blog-details.html">
-                <span><i class="glyph-icon flaticon-traffic-signal"></i></span>
-                <h4>SEA FREIGHT</h4>
-                <p>Integer congue elit non semper laore lectus orci posuer nisl tempor lacus mauris led ipsum.</p>
-            </a>
+    </div>
+</div>
+<div bsModal #detailShownModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">  
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{entity.Name}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h1 class="text-center italic wow zoomIn" data-wow-delay="0.3s">{{entity.Description}}</h1>
+                <img [src]="entity.Image" class="full-width wow zoomIn" data-wow-delay="0.3s" [alt]="entity.Name">
+                <div class="row">
+                    {{entity.Content}}
+                </div> 
+            </div>
         </div>
     </div>
 </div>

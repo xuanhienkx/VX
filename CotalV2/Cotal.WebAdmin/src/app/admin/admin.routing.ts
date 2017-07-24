@@ -13,7 +13,8 @@ export const adminRouting: Routes = [
             { path: 'post-category', loadChildren: './post-category/post-category.module#PostCategoryModule' },
             { path: 'post', loadChildren: './post/post.module#PostModule' },
             { path: 'page', loadChildren: './page/page.module#PageModule' },
-            { path: 'slider', loadChildren: './slider/slider.module#SliderModule' }
+            { path: 'slider', loadChildren: './slider/slider.module#SliderModule' },
+            { path: 'service', loadChildren: './provider/provider.module#ProviderModule' }
         ]
     }
 ];

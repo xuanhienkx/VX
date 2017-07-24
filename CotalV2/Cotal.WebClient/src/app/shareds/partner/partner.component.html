@@ -3,12 +3,26 @@
         <h1>TRUSTED partners</h1>
         <h2>Lorem ipsum dolor sit amet consectetur</h2>
     </div>
-    <div id="partners" class="owl-carousel enable-owl-carousel" data-pagination="false" data-navigation="true" data-min450="2" data-min600="2" data-min768="4">
-        <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/1.png" alt="Img"></a></div>
-        <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/2.png" alt="Img"></a></div>
+    <div id="partners" class="owl-carousel owl-theme owl-loaded owl-drag" data-pagination="false" data-navigation="true" data-min450="2"
+        data-min600="2" data-min768="4" *ngIf="partners && partners.length>0">
+        <div *ngFor="let it of partners"  class="owl-stage-outer"  >
+            <div class="owl-item">
+                  <a [href]="it.Url"><img [src]="baseFolder+it.Image" [alt]="it.Name"></a></div>
+            </div>
+          
+        <!-- <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/2.png" alt="Img"></a></div>
         <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/3.png" alt="Img"></a></div>
         <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/4.png" alt="Img"></a></div>
         <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/1.png" alt="Img"></a></div>
-        <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/2.png" alt="Img"></a></div>
+        <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/2.png" alt="Img"></a></div> -->
+    </div>
+    <div id="partners" class="owl-carousel enable-owl-carousel" data-pagination="false" data-navigation="true" data-min450="2"
+        data-min600="2" data-min768="4" *ngIf="!partners || partners.length <= 0"> 
+         <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/1png" alt="Img"></a></div>
+         <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/2.png" alt="Img"></a></div>
+        <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/3.png" alt="Img"></a></div>
+        <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/4.png" alt="Img"></a></div>
+        <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/1.png" alt="Img"></a></div>
+        <div class="wow rotateIn" data-wow-delay="0.3s"><a href="#"><img src="/assets/images/partners/2.png" alt="Img"></a></div> 
     </div>
 </div>

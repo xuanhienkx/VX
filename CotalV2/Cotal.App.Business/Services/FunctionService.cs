@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Cotal.App.Business.Infrastructure.Extensions;
 using Cotal.App.Business.ViewModels.System;
 using Cotal.App.Model.Models;
+using Cotal.Core.Common.Enums;
 using Cotal.Core.Domain.Interfaces;
 using Cotal.Core.InfacBase.Uow;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cotal.App.Business.Services
 {
@@ -14,8 +17,9 @@ namespace Cotal.App.Business.Services
         FunctionViewModel Create(FunctionViewModel function);
 
         IEnumerable<FunctionViewModel> GetAll(string filter);
+        IEnumerable<FunctionViewModel> GetAll(string filter, FunctionType type);
 
-        IEnumerable<FunctionViewModel> GetAllWithPermission(List<int> roleIds);
+        IEnumerable<FunctionViewModel> GetAllWithPermission(List<int> roleIds, FunctionType type);
 
         IEnumerable<FunctionViewModel> GetAllWithParentId(string parentId);
 
@@ -49,15 +53,21 @@ namespace Cotal.App.Business.Services
 
         public IEnumerable<FunctionViewModel> GetAll(string filter)
         {
-            var functions = Repository.Query(x => x.Status && (string.IsNullOrEmpty(filter) || x.Name.Contains(filter)), f => f.OrderBy(v => v.DisplayOrder));
+            var functions = Repository.Query(x => string.IsNullOrEmpty(filter) || x.Name.Contains(filter), f => f.OrderBy(v => v.DisplayOrder));
             return _mapper.Map<IEnumerable<Function>, IEnumerable<FunctionViewModel>>(functions.ToList());
         }
 
-        public IEnumerable<FunctionViewModel> GetAllWithPermission(List<int> roleIds)
+        public IEnumerable<FunctionViewModel> GetAll(string filter, FunctionType type)
+        {
+            var functions = Repository.Query(x => x.Status && (string.IsNullOrEmpty(filter) || x.Name.Contains(filter)) && x.FunctionType == type, f => f.OrderBy(v => v.DisplayOrder));
+            return _mapper.Map<IEnumerable<Function>, IEnumerable<FunctionViewModel>>(functions.ToList());
+        }
+
+        public IEnumerable<FunctionViewModel> GetAllWithPermission(List<int> roleIds, FunctionType type)
         {
             var qr = from f in DB.Functions
                      join p in DB.Permissions on f.Id equals p.FunctionId
-                     where roleIds.Contains(p.RoleId) && p.CanRead
+                     where roleIds.Contains(p.RoleId) && p.CanRead && f.FunctionType == type
                      select f;
             var parentIds = qr.Select(x => x.ParentId).Distinct();
             qr = qr.Union(Repository.Query(x => parentIds.Contains(x.Id)));
@@ -72,8 +82,8 @@ namespace Cotal.App.Business.Services
 
         public FunctionViewModel Get(string id)
         {
-            var model = Repository.Get(id);
-            return _mapper.Map<Function, FunctionViewModel>(model);
+            var model = Repository.Get(id); 
+            return  _mapper.Map<Function, FunctionViewModel>(model);  
         }
 
         public IResult Update(FunctionViewModel function)

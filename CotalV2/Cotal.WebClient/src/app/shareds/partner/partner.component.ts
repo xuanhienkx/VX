@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SystemConstants } from "../../core/common/system.constants";
+import { DataService } from "../../core/services/data.service";
 
 @Component({
   selector: 'app-partner',
@@ -7,20 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartnerComponent implements OnInit {
 
-  constructor() { }
+  public partners: any[];
+  public baseFolder: string = SystemConstants.BASE_API;
 
-  ngOnInit() { 
-  var owl = $('#partners');
-    owl.owlCarousel({ 
-      loop: true,
-      margin: 10,
-      autoplay: true,
-      autoplayTimeout: 3000,
-      autoplayHoverPause: true, 
-    });
-    $(function () {
-      owl.trigger('play.owl.autoplay', [1000])
-    })
+  constructor(private _dataService: DataService) { }
+
+  ngOnInit() {
+    this.loadData(); 
   }
+  loadData() {
+    //GetAllActive
+    this._dataService.get('/api/Slider/GetAllActive/Partner')
+      .subscribe((response: any) => {
+        this.partners = response; 
+        console.log(this.partners)
+      }, error => this._dataService.handleError(error));
+  }
+  prev() {
+    let owl = $('#partners');
+    owl.trigger('prev.owl.carousel');
+  }
+  next() {
+    let owl = $('#partners');
+    owl.trigger('next.owl.carousel');
+  }
+
 
 }
