@@ -25,10 +25,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cotal.App.Business", "Cotal
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{CCFA62C6-9F03-476D-82A2-493D98A34EA6}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\Cotal\Note.txt = ..\..\Cotal\Note.txt
+		Note.txt = Note.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xUnitTestCommon", "xUnitTestCommon\xUnitTestCommon.csproj", "{009D4BED-C75E-49F5-B685-C9705312712F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xUnitTestCommon", "xUnitTestCommon\xUnitTestCommon.csproj", "{009D4BED-C75E-49F5-B685-C9705312712F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xUnitTest", "xUnitTest", "{E9BE4E69-C022-4F33-B0EE-828FC52B884D}"
 EndProject

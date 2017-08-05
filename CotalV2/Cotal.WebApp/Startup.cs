@@ -95,7 +95,7 @@ namespace Cotal.WebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory/*, IDbInitializer dbInitializer, IDbCotalInitializer dbcotalInitializer*/)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IDbInitializer dbInitializer, IDbCotalInitializer dbcotalInitializer)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -111,8 +111,8 @@ namespace Cotal.WebApp
                 app.UseExceptionHandler("/Home/Error");
             }
              
-            //dbInitializer.Initialize();
-            //dbcotalInitializer.Initialize();
+            dbInitializer.Initialize();
+            dbcotalInitializer.Initialize();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc(routes =>
