@@ -1,5 +1,5 @@
 dotnet ef migrations add FirstMigration
 dotnet ef database update
 //https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/dotnet
-
+te
 
