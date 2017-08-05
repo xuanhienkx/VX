@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Cotal.App.Data.Contexts;
+using Cotal.Core.Common.Enums;
 using Cotal.App.Model.Models;
 
 namespace Cotal.App.Data.Migrations
@@ -124,6 +125,9 @@ namespace Cotal.App.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
+                    b.Property<string>("ErrorCode")
+                        .HasColumnType("varchar(10)");
+
                     b.Property<string>("LangCode")
                         .HasColumnType("varchar(5)")
                         .HasMaxLength(5);
@@ -238,7 +242,7 @@ namespace Cotal.App.Data.Migrations
 
                     b.Property<string>("Alias")
                         .IsRequired()
-                        .HasColumnType("varchar(256)")
+                        .HasColumnType("varchar(2000)")
                         .HasMaxLength(256);
 
                     b.Property<string>("AppCode")
@@ -252,7 +256,7 @@ namespace Cotal.App.Data.Migrations
                     b.Property<DateTime?>("CreatedDate");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(500);
+                        .HasMaxLength(4000);
 
                     b.Property<bool?>("HomeFlag");
 

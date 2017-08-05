@@ -73,7 +73,8 @@ namespace Cotal.WebApp
                     builder =>
                     {
                         builder
-                            .AllowAnyOrigin()
+                            //.AllowAnyOrigin()
+                            .WithOrigins("http://localhost:4200", "http://localhost:8089")
                             .AllowAnyMethod()
                             .AllowAnyHeader()
                             .AllowCredentials();

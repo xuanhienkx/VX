@@ -1,9 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import 'rxjs/add/operator/map';
-import { LoggedInUser } from "app/core/models/LoggedInUser";
-import { SystemConstants } from "app/core/common/system.constants";
+import 'rxjs/add/operator/map';  
 import { Observable } from 'rxjs/Observable';
+import { SystemConstants } from "../common/system.constants";
+import { LoggedInUser } from "../models/LoggedInUser";
 
 @Injectable()
 export class AuthenService {
